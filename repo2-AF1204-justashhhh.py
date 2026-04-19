@@ -16,10 +16,16 @@ app = marimo.App()
 
 
 @app.cell
-def _():
+async def _():
     import marimo as mo
     import pandas as pd
-    import plotly.express as px
+
+    try:
+        import plotly.express as px
+    except ImportError:
+        import micropip
+        await micropip.install("plotly")
+        import plotly.express as px
 
     return mo, pd, px
 
